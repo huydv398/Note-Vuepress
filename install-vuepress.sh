@@ -5,6 +5,7 @@ echo $OS
 
 
 install_vuepress(){
+    echo "Install Vuepress in Centos-7" && sleep 5
     yum update -y
     yum install -y git curl
     curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
