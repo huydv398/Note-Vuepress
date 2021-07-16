@@ -3,7 +3,7 @@ Hướng dẫn cái đặt website siêu nhanh. Vuepress
 ## Thực hiện cài đặt một bước
 Thực hiện câu lệnh sau để cài đặt lên Centos-7:
 
-`curl -Lso- https://raw.githubusercontent.com/huydv398/Note-Vuepress/main/install-vuepress.sh | bash `
+`curl https://raw.githubusercontent.com/huydv398/Note-Vuepress/main/install-vuepress.sh | bash `
 
 ##  Cài đặt thủ công
 ### Chuẩn bị

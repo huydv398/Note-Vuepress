@@ -3,10 +3,6 @@ cat /etc/os-release* |grep 'ubuntu' > /dev/null 2>&1 && OS='Ubuntu'
 cat /etc/os-release* |grep 'centos' > /dev/null 2>&1 && OS='CentOS' 
 echo $OS
 
-if [ "$OS"="CentOS" ]
-then
-install_vuepress 
-fi
 
 install_vuepress(){
     yum update -y
@@ -116,3 +112,8 @@ install_vuepress(){
 
     Echo "Hoàn tất cài đặt Vuepress trên môi trường Linux" && sleep5
 }
+
+if [ "$OS"="CentOS" ]
+then
+install_vuepress 
+fi
