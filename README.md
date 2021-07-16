@@ -219,3 +219,5 @@ Kiểm tra xem dịch vụ đang hoạt động:
            └─12120 /usr/bin/node /root/docsnapthe247/node_modules/.bin/vu...
 
 ```
+
+Như vậy đã cài đặt thành công. Chúc các bạn thành công.

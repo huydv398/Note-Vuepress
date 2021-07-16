@@ -6,11 +6,6 @@ echo $OS
 
 install_vuepress(){
     yum update -y
-    yum groupinstall "Development Tools" -y
-    yum install python3-devel -y
-    yum install python3 -y
-    yum install python3-pip -y
-    pip3 install virtualenv
     yum install -y git curl
     curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
     sudo yum install nodejs -y
@@ -23,9 +18,7 @@ install_vuepress(){
     npm init --yes # or #yarn init --yes
     npm install vuepress@1.8.2 --save-dev #or #yarn add -D vuepress vuepress-theme-meteorlxy
     yarn add -D vuepress
-    mkdir docs && echo -e "
-    # Hello VuePress
-    This is called by docs/REAMDE.md" > docs/README.md
+    mkdir docs && echo -e "# Hello VuePress\nThis is called by docs/REAMDE.md" > docs/README.md
 
     cp ~/vuepress-demo/package.json ~/vuepress-demo/package.json.bak
 
@@ -33,6 +26,24 @@ install_vuepress(){
 
     awk 'NR==8{print "   , \n    \"vuepress:dev\": \"vuepress dev docs\",\n    \"vuepress:build\": \"vuepress build docs --dest dist\""}1' ~/vuepress-demo/package.json.bak > ~/vuepress-demo/package.json
     # npm run vuepress:dev
+    echo "
+    [Unit]
+    Description= env vuepress
+    After=network.target
+
+    [Service]
+    PermissionsStartOnly=True
+    User=root
+    Group=root
+    WorkingDirectory=/root/vuepress-demo/
+    ExecStart=/usr/bin/yarn run vuepress:dev
+    Restart=on-failure
+    [Install]
+    WantedBy=multi-user.target
+    " > /etc/systemd/system/vuepress.service
+    systemctl daemon-reload
+    systemctl start vuepress
+    systemctl enable vuepress
     cd ~/vuepress-demo/docs
     mkdir .vuepress && cd .vuepress
     echo "
@@ -76,41 +87,12 @@ install_vuepress(){
             ]
         }
     }
-
-
-    " > config.js
-
-    cd ~ && cd vuepress && mkdir dir1 && cd dir1
-    git clone https://github.com/huydv398/Note-Vuepress
-    cd Note-Vuepress/ && mv dir/ ~/vuepress-demo/docs/
-
-    cd ~/vuepress-demo
-
-
-    echo "
-    [Unit]
-    Description= env vuepress
-    After=network.target
-
-    [Service]
-    PermissionsStartOnly=True
-    User=root
-    Group=root
-    WorkingDirectory=/root/vuepress-demo/
-    ExecStart=/usr/bin/yarn run vuepress:dev
-    Restart=on-failure
-    [Install]
-    WantedBy=multi-user.target
-    " > /etc/systemd/system/vuepress.service
-
-    virtualenv env -p python3.6
-    source env/bin/activate
-    systemctl daemon-reload
-    systemctl start vuepress
-    systemctl enable vuepress
-    systemctl status vuepress
-
-    Echo "Hoàn tất cài đặt Vuepress trên môi trường Linux" && sleep5
+" > config.js
+cd ~ && cd vuepress && mkdir dir1 && cd dir1
+git clone https://github.com/huydv398/Note-Vuepress
+cd Note-Vuepress/ && mv dir/ ~/vuepress-demo/docs/
+systemctl restart vuepress
+echo "Hoàn tất cài đặt Vuepress trên môi trường Linux" && sleep5
 }
 
 if [ "$OS"="CentOS" ]
