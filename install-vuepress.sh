@@ -93,7 +93,7 @@ cd ~ && cd vuepress && mkdir dir1 && cd dir1
 git clone https://github.com/huydv398/Note-Vuepress
 cd Note-Vuepress/ && mv dir/ ~/vuepress-demo/docs/
 systemctl restart vuepress
-echo "Hoàn tất cài đặt Vuepress trên môi trường Linux" && sleep5
+echo "Hoàn tất cài đặt Vuepress trên môi trường Linux"
 }
 
 if [ "$OS"="CentOS" ]
